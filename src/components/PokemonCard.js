@@ -1,28 +1,34 @@
 import react from "react";
 import { Image, Pressable, View } from "react-native";
 import { StyleSheet, Text } from "react-native";
+import { getColorByPokemonType } from "../utils/getColorByPokemonType";
+import { capitalize } from "lodash";
 
 function PokemonCard(props) {
   const { pokemon } = props;
+
+  const pokemonColor = getColorByPokemonType(pokemon.type)
+ 
+  const bgStyles = { backgroundColor: pokemonColor, ...styles.bgStyles };
 
   const goToPokemon = () => {
     console.log(`Vamos a ${pokemon.name}`);
   }
 
   return (
-   <View style={styles.container}>
-     <Pressable onPress={goToPokemon}>
-      <View style={styles.card}>
-        <View style={styles.spacing}>
-          <View style={styles.bgStyles}>
-            <Text style={styles.number}>#{`${pokemon.order}`.padStart(3, 0)}</Text>
-            <Text style={styles.name}>{pokemon.name}</Text>
-            <Image source={{uri: pokemon.image}} style={styles.image}/>
+    <View style={styles.container}>
+      <Pressable onPress={goToPokemon}>
+        <View style={styles.card}>
+          <View style={styles.spacing}>
+            <View style={bgStyles}>
+              <Text style={styles.number}>#{`${pokemon.order}`.padStart(3, 0)}</Text>
+              <Text style={styles.name}>{capitalize(pokemon.name)}</Text>
+              <Image source={{ uri: pokemon.image }} style={styles.image} />
+            </View>
           </View>
         </View>
-      </View>
-    </Pressable>
-   </View>
+      </Pressable>
+    </View>
   );
 };
 
@@ -32,17 +38,17 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    height: "auto",
-    width: 170,
-    marginBottom: 50,
-    pointerEvents: "box-none"
+    height: 135,
+    width: 150
   },
   spacing: {
     flex: 1,
-    padding: 10,
+    padding: 5,
   },
-  bgStyles:{
-    backgroundColor: "gray"
+  bgStyles: {
+    flex: 1,
+    borderRadius: 15,
+    padding: 10,
   },
   number:{
     position: "absolute",
@@ -63,8 +69,7 @@ const styles = StyleSheet.create({
     right: 2,
     width: 90,
     height: 90,
-  }
-})
-
+  },
+});
 
 export { PokemonCard };

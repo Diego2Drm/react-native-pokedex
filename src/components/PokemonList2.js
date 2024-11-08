@@ -10,7 +10,7 @@ function PokemonList(props) {
       data={pokemons}
       numColumns={2}
       showsVerticalScrollIndicator={false}
-      keyExtractor={(pokemon) => String(pokemon.id)}
+      keyExtractor={(pokemon, index) => String(index)}
       renderItem={({ item }) => <PokemonCard pokemon={item}/>}
       contentContainerStyle={styles.flatListContainer}
     />
@@ -20,7 +20,7 @@ function PokemonList(props) {
 const styles = StyleSheet.create({
   flatListContainer: {
       paddingHorizontal: 5,
-      paddingTop: 60,
+      // paddingTop: 60,
   }
 })
 

@@ -10,7 +10,7 @@ function PokedexNavigation() {
     return(
       <Stack.Navigator>
         <Stack.Screen name="Pokedex-Principal" component={Pokedex}
-        options={{headerShown: false}}/>
+        options={{title: '', headerTransparent: true}}/>
         <Stack.Screen name="Pokemon" component={Pokemon}  options={{headerShown: false}}/>
       </Stack.Navigator>
     );

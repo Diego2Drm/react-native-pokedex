@@ -22,7 +22,9 @@ function Navigation() {
         options={{
           tabBarLabel: "",
           headerTitleAlign: "center",
-          tabBarIcon: () => renderPokeball()
+          tabBarIcon: () => renderPokeball(),
+          title: "",
+          headerShown: false,
         }}
       />
 
