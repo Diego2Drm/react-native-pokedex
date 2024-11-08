@@ -23,8 +23,8 @@ function Navigation() {
           tabBarLabel: "",
           headerTitleAlign: "center",
           tabBarIcon: () => renderPokeball(),
-          title: "",
-          headerShown: false,
+          // title: "",
+          // headerShown: false,
         }}
       />
 

@@ -1,10 +1,12 @@
-import react, { useEffect, useState } from "react";
+import react, { useCallback, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getPokemonApi, getPokemonDetailsByUrlApi } from "../api/pokemon";
 import { PokemonList } from "../components/PokemonList2";
 
 function Pokedex() {
   const [pokemons, setPokemons] = useState([]);
+  const [nextUrl, setNxtUrl] = useState(null);
+  const [loading, setloading ] = useState(false);
 
   useEffect(() => {
     // funcion anomima autoejecutable () ()
@@ -12,10 +14,12 @@ function Pokedex() {
       await loadPokemons();
     })();
   }, []);
-
-  const loadPokemons = async () => {
+  
+  const loadPokemons =  useCallback( async () => {
     try {
-      const response = await getPokemonApi();
+      setloading(true);
+      const response = await getPokemonApi(nextUrl);
+      setNxtUrl(response.next)
 
       const pokemonArray = [];
 
@@ -34,13 +38,15 @@ function Pokedex() {
       setPokemons([...pokemons, ...pokemonArray]);
     } catch (error) {
       console.error(error);
+    } finally {
+      setloading(false);
     }
-  }
+  },[pokemons, nextUrl])
 
 
   return (
     <SafeAreaView>
-      <PokemonList pokemons={pokemons} />
+      <PokemonList pokemons={pokemons} loadPokemons={loadPokemons} isNext={nextUrl} isLoading={loading}/>
     </SafeAreaView>
   );
 };
