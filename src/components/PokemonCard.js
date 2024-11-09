@@ -3,16 +3,17 @@ import { Image, Pressable, View } from "react-native";
 import { StyleSheet, Text } from "react-native";
 import { getColorByPokemonType } from "../utils/getColorByPokemonType";
 import { capitalize } from "lodash";
+import { useNavigation } from "@react-navigation/native";
 
 function PokemonCard(props) {
   const { pokemon } = props;
-
   const pokemonColor = getColorByPokemonType(pokemon.type)
- 
   const bgStyles = { backgroundColor: pokemonColor, ...styles.bgStyles };
+  const navigation = useNavigation();
 
   const goToPokemon = () => {
-    console.log(`Vamos a ${pokemon.name}`);
+  // solo datos planos ---> un ID/Number y Texto ... No funciones, No Objetos, No Compnentes
+    navigation.navigate("Pokemon", { id: pokemon.id});
   }
 
   return (
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 10,
   },
-  number:{
+  number: {
     position: "absolute",
     right: 10,
     top: 10,
