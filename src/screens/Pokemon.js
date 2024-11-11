@@ -4,6 +4,7 @@ import { getPokemonDetailsApi } from "../api/pokemon";
 import { ScrollView } from "react-native-gesture-handler";
 import { Header } from "../components/Pokemon/Header";
 import { Type } from "../components/Pokemon/Type";
+import { Stats } from "../components/Pokemon/Stats";
 
 function Pokemon(props) {
   const { navigation, route: { params }, } = props;
@@ -32,6 +33,7 @@ function Pokemon(props) {
         />
 
         <Type types={pokemon.types}/>
+        <Stats stats={pokemon.stats}/>
       </ScrollView>
     );
 };
