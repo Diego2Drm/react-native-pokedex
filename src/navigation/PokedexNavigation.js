@@ -11,7 +11,7 @@ function PokedexNavigation() {
       <Stack.Navigator>
         <Stack.Screen name="Pokedex-Principal" component={Pokedex}
         options={{title: '', headerTransparent: true}}/>
-        <Stack.Screen name="Pokemon" component={Pokemon}  options={{headerShown: false}}/>
+        <Stack.Screen name="Pokemon" component={Pokemon}  options={{title: '', headerTransparent: true}}/>
       </Stack.Navigator>
     );
 };
