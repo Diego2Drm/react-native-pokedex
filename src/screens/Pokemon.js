@@ -3,6 +3,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import { getPokemonDetailsApi } from "../api/pokemon";
 import { ScrollView } from "react-native-gesture-handler";
 import { Header } from "../components/Pokemon/Header";
+import { Type } from "../components/Pokemon/Type";
 
 function Pokemon(props) {
   const { navigation, route: { params }, } = props;
@@ -29,6 +30,8 @@ function Pokemon(props) {
         image={pokemon.sprites.other["official-artwork"].front_default}
         type={pokemon.types[0].type.name}
         />
+
+        <Type types={pokemon.types}/>
       </ScrollView>
     );
 };
