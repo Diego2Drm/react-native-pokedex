@@ -1,10 +1,11 @@
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { addPokemonFavorite } from "../../api/favoriteApi";
 
 function AddFavorite(props) {
   const { id } = props;
 
-  const addFavorite = () => {
-    console.log("Añadido a favoritos", id);
+  const addFavorite = async () => {
+   await addPokemonFavorite(id)
   }
 
   return(
@@ -19,3 +20,6 @@ function AddFavorite(props) {
 };
 
 export { AddFavorite };
+
+
+// yarn add @react-native-async-storage/async-storage
