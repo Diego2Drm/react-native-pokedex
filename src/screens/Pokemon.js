@@ -6,14 +6,17 @@ import { Header } from "../components/Pokemon/Header";
 import { Type } from "../components/Pokemon/Type";
 import { Stats } from "../components/Pokemon/Stats";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { AddFavorite } from "../components/Pokemon/AddFavorite";
+import useAuth from "../hooks/useAuth"
 
 function Pokemon(props) {
   const { navigation, route: { params }, } = props;
   const [pokemon, setPokemon] = useState(null);
+  const { auth }= useAuth()
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => null,
+      headerRight: () => auth && <AddFavorite id={pokemon?.id}/>,
       headerLeft: () => (
         <Icon
           name="arrow-left"
@@ -24,7 +27,7 @@ function Pokemon(props) {
         />
       ),
     });
-  }, [navigation, params]);
+  }, [navigation, params, pokemon]);
 
   useEffect(() => {
     (async () => {
