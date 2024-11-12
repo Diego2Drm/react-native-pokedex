@@ -7,6 +7,7 @@ export async function getPokemonFavoriteApi(){
   try {
     const response = await AsyncStorage.getItem(FAVORITE_STORAGE)
     return JSON.parse(response || []);
+    // return JSON.parse(response || "[]");
   } catch (error) {
     throw error;
   }
@@ -31,3 +32,13 @@ export async function isPokemonFavoriteApi(id){
     throw error;
   }
 }  
+
+export async function removePokemonFavoriteApi(id) {
+  try {
+    const favorites = await getPokemonFavoriteApi();
+    const newFavorite = pull(favorites, id);
+    await AsyncStorage.setItem(FAVORITE_STORAGE, JSON.stringify(newFavorite));
+  } catch (error) {
+    throw error;
+  }
+}

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { addPokemonFavorite, isPokemonFavoriteApi } from "../../api/favoriteApi";
+import { addPokemonFavorite, isPokemonFavoriteApi, removePokemonFavoriteApi } from "../../api/favoriteApi";
 
 function AddFavorite(props) {
   const { id } = props;
-  const [ isFavorite, setIsFavorite ] = useState(undefined);
-  const [ reloadCheck, setReloadCheck ] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(undefined);
+  const [reloadCheck, setReloadCheck] = useState(false);
   const Icon = isFavorite ? FontAwesome : FontAwesome5;
-  
+
   useEffect(() => {
-    ( async () => {
+    (async () => {
       try {
         const response = await isPokemonFavoriteApi(id);
         setIsFavorite(response)
@@ -18,33 +18,37 @@ function AddFavorite(props) {
         throw error
       }
     })()
-  },[id, reloadCheck])
+  }, [id, reloadCheck])
 
   const onReloadCheckFavorite = () => {
-    setReloadCheck( (prev) => !prev);
+    setReloadCheck((prev) => !prev);
   }
 
   const addFavorite = async () => {
-   try {
-    await addPokemonFavorite(id)
-    onReloadCheckFavorite();
-   } catch (error) {
-    throw error
-   }
+    try {
+      await addPokemonFavorite(id)
+      onReloadCheckFavorite();
+    } catch (error) {
+      throw error
+    }
   }
 
-  const removeFavorite = () => {
-    console.log("Eliminar de favoritos");
-    
+  const removeFavorite = async () => {
+    try {
+      await removePokemonFavoriteApi(id);
+      onReloadCheckFavorite();
+    } catch (error) {
+      throw error
+    }
   }
 
-  return(
-    <Icon 
-    name="heart"
-    color="#fff"
-    size={20}
-    onPress={isFavorite ? removeFavorite : addFavorite}
-    style={{marginRight: 20}}
+  return (
+    <Icon
+      name="heart"
+      color="#fff"
+      size={20}
+      onPress={isFavorite ? removeFavorite : addFavorite}
+      style={{ marginRight: 20 }}
     />
   );
 };
