@@ -15,6 +15,7 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "es.tincode.pokedex-diego-2d",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
