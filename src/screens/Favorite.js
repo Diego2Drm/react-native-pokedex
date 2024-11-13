@@ -1,22 +1,45 @@
-import React from "react";
-import { Button, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useCallback, useState } from "react";
+import { Text } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { getPokemonFavoriteApi } from "../api/favoriteApi";
+import { getPokemonDetailsApi } from "../api/pokemon";
+import useAuth from "../hooks/useAuth"
+import { PokemonList } from "../components/PokemonList2";
 
 function Favorite() {
+  const [pokemon, setPokemon] = useState([]);
+  const { auth } = useAuth();
 
-  const checkFavorites = async () => {
-    const response = await getPokemonFavoriteApi();
-    console.log(response);
-    
-  }
+  useFocusEffect(
+    useCallback(() => {
+      if (auth) {
+        (async () => {
+          const response = await getPokemonFavoriteApi();
 
-    return(
-      <SafeAreaView>
-        <Text>Favorite</Text>
-        <Button title="obtener Favoritos" onPress={checkFavorites}/>
-      </SafeAreaView>
-    );
+          const pokemonArray = [];
+          for await (const id of response) {
+            const pokemonDetails = await getPokemonDetailsApi(id);
+
+            pokemonArray.push({
+              id: pokemonDetails.id,
+              name: pokemonDetails.name,
+              type: pokemonDetails.types[0].type.name,
+              order: pokemonDetails.order,
+              image: pokemonDetails.sprites.other["official-artwork"].front_default,
+            });
+          }
+          setPokemon(pokemonArray);
+        })();
+      }
+    }, [auth])
+  );
+
+  return !auth ? (
+    <Text>Inicia Sesión</Text>
+  ) : (
+     <PokemonList pokemons={pokemon} />
+  )
+
 };
 
 export { Favorite };
