@@ -15,7 +15,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "es.tincode.pokedex-diego-2d",
+      "package": "com.diego2r924.PokeDex",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -23,6 +23,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "49785c82-b4b7-4c32-a8a9-0b101d6f084d"
+      }
     }
   }
 }
